@@ -8,21 +8,23 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" type="text/javascript"></script>
   <style type="text/css">
         div#container.firstbg {
-                background: url(img/collect/candy-bg.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+          background: url(img/collect/candy-bg.png);
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
         }
-       .intro-banner img{
+       .intro-banner img {
           height: 100%;
-          width: 100%;
+          width: 76%;
           display: inline-block;
        }
        .intro-banner{
           height: 137px;
-          width: 264px;
+          width: 100%;
+              padding: 0 0 0 38px;
        }
        .part2 ul {
-          margin-top: 76px;
+          margin-top: 88px;
+          padding: 44px 0 0;
         }
      </style>
 </head>
@@ -112,9 +114,9 @@
         <h2>The great components</h2>
         <p>Each are worth 20 energy points that you can win or lose.</p>
         <ul>
-          <li><img src="img/collect/picture1-1.png" class="sprite" alt="Video" data-collision="energy:20" data-type="good"></li>
-          <li><img src="img/collect/picture2-1.png" class="sprite" alt="Video" data-collision="energy:20" data-type="good"></li>
-          <li><img src="img/collect/picture3-1.png" class="sprite" alt="Video" data-collision="energy:20" data-type="good"></li>
+          <li><img src="img/collect/picture1-2.png" class="sprite" alt="Video" data-collision="energy:20" data-type="good"></li>
+          <li><img src="img/collect/picture2-2.png" class="sprite" alt="Video" data-collision="energy:20" data-type="good"></li>
+          <li><img src="img/collect/picture3-2.png" class="sprite" alt="Video" data-collision="energy:20" data-type="good"></li>
        </ul>
         <h2>The good components</h2>
         <p>Each are worth 10 energy points that you can win or lose.</p>
@@ -173,22 +175,42 @@
     </div>
     <canvas></canvas>
   </section>
-    <style type=" ">
+    <style>
       #gameover p{
-                width: 53%;
+                width: 35%;
+    position: absolute;
+    top: 165px;
+    left: 168px;
         }
         .report {
              position: absolute;
              top: 105px;
-             left: 147px;
+             left: 172px;
+        }
+        #gameover button{
+          display: block;
+          width: 100%;
+          margin: 20px 0;
+          font-size: 13px;
+          font-weight: 550;
+          line-height: 14px;
+          border-radius: 28px;
+          color: #e74c3c;
+          background-color: #ffd87d;
+          padding: 9px 0;
+          border: none;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+          text-transform: uppercase;
+          letter-spacing: 1.2;
+    
         }
     </style>
   <section id="gameover">
     <header>
       <h1>Game over!</h1>
-      <div class="report"> <span class="totalCandyCatch">candy: <output></output></span>
+      <div class="report"> <span id="finalreportcatch" class="totalCandyCatch"> <output></output></span>
       <span id="finaltime">  time <output></output> </div></span>
-      <p class="reply-btn-holder"><button id="replay">Play again</button></p>
+      <p class="reply-btn-holder"><button id="replay">Try again</button></p>
     </header>
     
     <p style="display: none" class="message" data-highscore="New highscore!"></p>
@@ -217,6 +239,7 @@ rightbutton = $( '.right' ),
 scoredisplay = $( '#score output' ),
 energydisplay = $( '#energy output' ),
 totalCatchdisplay = $( '#totalCatch output' ),
+finalreportcatchdisplay = $( '#finalreportcatch output' ),
 timerdisplay = $('#timer output'),
 finalTimedisplay =  $('#finaltime output'),
 catchLeftdisplay = $( '#catchLeft output' ),
@@ -454,6 +477,7 @@ energydisplay.innerHTML = startenergy;
 startDate = new Date();
 timerdisplay.innerHTML = 0;
 totalCatchdisplay.innerHTML = 0;
+finalreportcatchdisplay.innerHTML =0;
 catchLeftdisplay.innerHTML = 0;
 loop();
 }
@@ -524,7 +548,10 @@ if (x > width - offset) { x = width - offset; }
 Game over
 */
 function gameover() {
-   clearInterval ( PlayerTime);
+clearInterval ( PlayerTime);
+var info =jQuery('#scoresinfo').clone();
+jQuery( "#gameover" ).find('#scoresinfo').remove();
+jQuery( "#gameover" ).prepend( info  );
 document.body.className = 'gameover';
 setcurrent( over );
 gamestate = 'gameover';
@@ -568,6 +595,7 @@ if ( (x - offset) < this.px && this.px < (x + offset) ) {
 
    totalCatchCount++;
   totalCatchdisplay.innerHTML = totalCatchCount;
+  finalreportcatchdisplay.innerHTML = totalCatchCount;
   //console.log('total count is '+totalCatchCount);
 }
 
@@ -678,28 +706,33 @@ init();
     font-family: Avenir;
   background: #000;
 }
-.form-holder{
-  padding-top: 30px;
+.form-holder {
+    padding-top: 65px;
 }
 .characters{
   font-size: 18px;
-  position: relative
+  position: relative;
+  letter-spacing: 1;
 }
 .characters .instruction-title{
   position: absolute;
-    top: -58px;
+    top: -28px;
     left: 1px;
+    color: #e74c3c !important;
+    font-size: 23px;
+    font-weight: 550;
 }
 .part2 ul.characters li{
-  margin:18px 0 !important;
+  margin:28px 0 !important;
+  color:#4a4a4a;
 }
 .part2 ul.characters li.btn-list{
   margin: 85px 0 0!important;
-  position: absolute;
-  bottom: -194px;
-  left: -12px;
-  display: inline-block;
-  width: 294px;
+    position: absolute;
+    bottom: -245px;
+    left: 0px;
+    display: inline-block;
+    width: 360px;
 }
 h1 {font-size: 30px;}
 h2 {font-size: 24px; margin-bottom: 10px;}
@@ -719,21 +752,24 @@ h2 {font-size: 24px; margin-bottom: 10px;}
   height: 130px;
   display: block;
 }
+#gameover{
+  background-color:#443e3e8c;
+}
 #gameover h1{
       text-align: center;
     text-transform: uppercase;
     position: absolute;
-    left: 126px;
+    left: 173px;
     top: 60px;
     font-size: 22px;
 }
 #gameover header{
     background: url(img/collect/gameover-circle.png);
-    background-position-x: 58px;
+    background-position-x: 113px;
     background-repeat: no-repeat;
     height: 295px;
     position: relative;
-    margin-top: 184px;
+    margin-top: 308px;
 }
  #intro p {
   width: 80%;
@@ -754,27 +790,30 @@ h2 {font-size: 24px; margin-bottom: 10px;}
   font-size: 15px;
   text-transform: uppercase;
 }
-#intro button, #gameover button, #characters button, .characters button {
+#intro button,  #characters button, .characters button {
   display: block;
   width: 100%;
   margin: 20px 0; 
   font-size: 25px;
+  font-weight: 550;
   line-height: 30px;
   border-radius: 28px;
   color:#e74c3c;
   background-color: #ffd87d;
-      padding: 12px 0;
+      padding: 18px 0;
     border: none;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
   text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: 1.2;
 }
 #intro li.btn-list{
-  margin-top:222px;
-  position: absolute;
-  bottom: 0;
-  left: 24px;
-  display: inline-block;
-  width: 294px; 
+ margin-top: 222px;
+    position: absolute;
+    bottom: 0;
+    left: 32px;
+    display: inline-block;
+    width: 360px; 
 }
 #intro button:hover, #intro button:focus, #gameover button:hover, #gameover button:focus {
   box-shadow: 0 6px 5px -5px rgba(0, 0, 0, 0.7);
@@ -848,7 +887,7 @@ li {
 }
 #playfield, #gameover, #instructions, #intro {
   position: absolute;
-  top: -900px;
+  top: -923px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -904,13 +943,13 @@ li {
 .right {
   display: block;
   position: absolute;
-  right: 0;
+  right: 20px;
   bottom: 20px;
 }
 .left {
   display: block;
   position: absolute;
-  left: 0;
+  left: 12px;
   bottom: 20px;
 }
 canvas {
@@ -955,7 +994,7 @@ canvas {
     width: 85%;
     background:white;
     box-shadow: inset 0px 1px 0px #f7e9e9;
-    padding:10px;
+    padding:10px 0;
     box-sizing: border-box;
     height:93%;
     position: relative;
@@ -979,6 +1018,7 @@ canvas {
     /* text-align: center; */
     border: 1px solid #ffd87d;
     font-size: 17px;
+    width:362px;
 }
 .input-holder label img{
     width:20px;
@@ -997,7 +1037,7 @@ canvas {
 }
 .scoreinfoContainer {
   display:flex;
-  font-size: 18px;
+  font-size: 20px;
   flex:2;
   padding: 0 3px 0 45px;   
     }
@@ -1037,7 +1077,7 @@ div#catchLeft::before{
 
 }
 
-div#timer::before{
+div#timer::before {
     content:'';
    position:absolute;
    background:url('img/collect/clockIcon.png');
@@ -1046,6 +1086,21 @@ div#timer::before{
    height:25px;
    width:30px;
    left:-5px;
+    top: 2px;
+}
+span#finaltime{
+  margin-left: 32px;
+  position: relative;
+}
+span#finaltime::before{
+    content:'';
+   position:absolute;
+   background:url('img/collect/finaltimer.png');
+   background-repeat:no-repeat;
+   display:inline-block;
+   height:25px;
+   width:30px;
+   left:-22px;
     top: 2px;
 }
 </style>
